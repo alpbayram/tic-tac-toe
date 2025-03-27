@@ -1,0 +1,73 @@
+@font-face {
+	font-family: "Inter";
+	src: local("Inter"), local("Inter Regular"), url("../fonts/Inter-R.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: local("Inter Bold"), url("../fonts/Inter-B.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: local("Inter Italic"), url("../fonts/Inter-I.woff2") format("woff2");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Inter";
+	src: local("Inter Bold Italic"), url("../fonts/Inter-BI.woff2") format("woff2");
+	font-weight: 700;
+	font-style: italic;
+	font-display: optional;
+}
+@font-face {
+	font-family: "Inter-fallback-linux";
+	src: local("Liberation Sans");
+}
+@font-face {
+	font-family: "Inter-fallback";
+	src: local("Arial");
+}
+@font-face {
+	font-family: "Norse";
+	src: url("../fonts/Norse-R.woff2");
+	font-weight: normal;
+	font-style: normal;
+	font-display: optional;
+}
+@font-face {
+	font-family: "Norse";
+	src: url("../fonts/Norse-B.woff2");
+	font-weight: bold;
+	font-style: normal;
+	font-display: optional;
+}
+img {
+	block-size: auto;
+	height: auto;
+
+	object-fit: contain;
+}
+p {
+	min-width: min-content;
+}
+* {
+	outline: 1px solid black;
+}
+body{
+	background-color: #0785b5;
+}
+.container{
+	display: flex;
+	justify-content: center;
+	font-size: 3rem;
+
+}
