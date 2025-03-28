@@ -46,18 +46,28 @@ function playGame(player1, player2) {
 			if (round % 2 == 0) {
 				const y = prompt("oynıcagınız yeri seçiniz");
 				const x = prompt("oynıcagınız yeri seçiniz");
-				if ((playerOneMarker == "x") & (gameBoard[y][x] == null)) {
+				if (playerOneMarker == "x" && gameBoard[y][x] == null) {
 					gameBoard[y][x] = "x";
-					round++;
+					console.log(checkWinning(playerOneMarker));
+					if (checkWinning(playerOneMarker) == true) {
+						console.log(`${playerOneName} siz kazandınız. İşaretiniz: ${playerOneMarker}`);
+					} else {
+						round++;
+					}
 				} else {
 					console.log("orayı seçemezsiniz zaten seçildi lütfen tekrar yer seçin");
 				}
 			} else {
 				const y = prompt("oynıcagınız yeri seçiniz");
 				const x = prompt("oynıcagınız yeri seçiniz");
-				if ((playerTwoMarker == "o") & (gameBoard[y][x] == null)) {
+				if (playerTwoMarker == "o" && gameBoard[y][x] == null) {
 					gameBoard[y][x] = "o";
-					round++;
+					console.log(checkWinning(playerTwoMarker));
+					if (checkWinning(playerTwoMarker) == true) {
+						console.log(`${playerTwoName} siz kazandınız. İşaretiniz: ${playerTwoMarker}`);
+					} else {
+						round++;
+					}
 				} else {
 					console.log("orayı seçemezsiniz zaten seçildi lütfen tekrar yer seçin");
 				}
@@ -65,13 +75,51 @@ function playGame(player1, player2) {
 			return showBoard();
 		};
 
-		const checkWinning = function () {
-			if ((gameBoard[0][0] == gameBoard[0][1])== gameBoard[0][2]) {
-				return gameBoard[0][0]+ "Kazandı."
+		const checkWinning = function (mark) {
+			let checkRow = gameBoard.find(function (item, index, array) {
+				let xCountInRow = item.filter(function (item, index, array) {
+					if (item == mark) {
+						return true;
+					}
+				}).length;
+
+				if (xCountInRow == 3) {
+					return true;
+				}
+			});
+			let returnColumn = (function (marker) {
+				let checkColumn = 0;
+				let col = 0;
+				for (; checkColumn < 3; ) {
+					if (checkColumn === 3 || col == 2) {
+						break;
+					} else {
+						col++;
+					}
+					checkColumn = gameBoard.reduce(function (acc, item, index, array) {
+						if (item[col] == marker) {
+							acc.push(item[col]);
+							console.log(acc);
+							return acc;
+						} else {
+							return acc;
+						}
+					}, []).length;
+				}
+
+				if (checkColumn == 3) {
+					return true;
+				}
+			})(mark);
+
+			if (checkRow != undefined || returnColumn == true) {
+				return true;
+			} else {
+				return false;
 			}
 		};
 
-		return { getRound, playOneRound, showBoard, getPlayersNames, gameBoard,checkWinning };
+		return { getRound, playOneRound, showBoard, getPlayersNames, checkWinning };
 	};
 }
 const game1 = playGame(playerX, playerO);
