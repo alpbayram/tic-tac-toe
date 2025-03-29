@@ -1,10 +1,20 @@
 "use strict";
 
-function createPlayer({ name, marker }) {
-	return {
-		name,
-		marker,
+function createPlayers(firstPlayerName, secondPlayerName) {
+	const firstMarker = prompt("X mi O mu?");
+	const secondMarker = firstMarker === "X" ? "O" : "X";
+
+	const player1 = {
+		name: firstPlayerName,
+		marker: firstMarker,
 	};
+
+	const player2 = {
+		name: secondPlayerName,
+		marker: secondMarker,
+	};
+
+	return [player1, player2];
 }
 const playerX = createPlayer({ name: "Alp", marker: "x" });
 const playerO = createPlayer({ name: "Sezi", marker: "o" });
@@ -50,7 +60,9 @@ function playGame(player1, player2) {
 					gameBoard[y][x] = "x";
 					console.log(checkWinning(playerOneMarker));
 					if (checkWinning(playerOneMarker) == true) {
-						console.log(`${playerOneName} siz kazandınız. İşaretiniz: ${playerOneMarker}`);
+						console.log(
+							`${playerOneName} siz kazandınız. İşaretiniz: ${playerOneMarker}`
+						);
 					} else {
 						round++;
 					}
@@ -64,7 +76,9 @@ function playGame(player1, player2) {
 					gameBoard[y][x] = "o";
 					console.log(checkWinning(playerTwoMarker));
 					if (checkWinning(playerTwoMarker) == true) {
-						console.log(`${playerTwoName} siz kazandınız. İşaretiniz: ${playerTwoMarker}`);
+						console.log(
+							`${playerTwoName} siz kazandınız. İşaretiniz: ${playerTwoMarker}`
+						);
 					} else {
 						round++;
 					}
