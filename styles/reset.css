@@ -5,23 +5,23 @@
 		0.1px 2.2px 2.5px -1.2px hsl(var(--shadow-color) / 0.09),
 		0.1px 4.4px 5px -1.9px hsl(var(--shadow-color) / 0.09),
 		0.2px 8.5px 9.6px -2.5px hsl(var(--shadow-color) / 0.09);
-		font-size: calc(0.875rem + (1 - 0.875) * ((100vw - 25rem) / (120 - 25)));
+	font-size: calc(0.875rem + (1 - 0.875) * ((100vw - 25rem) / (120 - 25)));
 
-		--font-size-xs: 0.6rem;
-  --font-size-sm: 0.8rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.1rem;
-  --font-size-xl: 1.3rem;
-  --font-size-responsive: clamp(0.8rem, 1.6vw, 1.2rem);
-  --padding-main:0.5rem clamp(0.5rem, 1.5vw, 3rem);
-  --gap-main:clamp(0.5rem, 1vw, 1.5rem);
+	--font-size-xs: 0.6rem;
+	--font-size-sm: 0.8rem;
+	--font-size-md: 1rem;
+	--font-size-lg: 1.1rem;
+	--font-size-xl: 1.3rem;
+	--font-size-responsive: clamp(0.8rem, 1.6vw, 1.2rem);
+	--padding-main: 0.5rem clamp(0.5rem, 1.5vw, 3rem);
+	--gap-main: clamp(0.5rem, 1vw, 1.5rem);
 }
 hr {
 	border: none;
 	height: 2px;
 	background-color: rgba(0, 0, 0, 0.2);
 	margin: 10px 0;
-  }
+}
 *,
 *::before,
 *::after {

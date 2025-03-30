@@ -1,31 +1,43 @@
 "use strict";
 
-function createPlayers(firstPlayerName, secondPlayerName) {
-	const firstMarker = prompt("X mi O mu?");
-	const secondMarker = firstMarker === "X" ? "O" : "X";
+function createPlayers({ playerOneName, playerOneMarker, playerTwoName }) {
+	const playerTwoMarker = playerOneMarker == "x" ? "o" : "x";
 
-	const player1 = {
-		name: firstPlayerName,
-		marker: firstMarker,
+	return {
+		playerOneName,
+		playerOneMarker,
+		playerTwoName,
+		playerTwoMarker,
 	};
-
-	const player2 = {
-		name: secondPlayerName,
-		marker: secondMarker,
-	};
-
-	return [player1, player2];
 }
-const playerX = createPlayer({ name: "Alp", marker: "x" });
-const playerO = createPlayer({ name: "Sezi", marker: "o" });
+const players = createPlayers({
+	playerOneName: "Alp",
+	playerOneMarker: "x",
+	playerTwoName: "Sezi",
+});
 
-function playGame(player1, player2) {
+// Her oyunda gereken iife methodlarım.
+const gameMethods = (function () {
+	const getRound = function (round) {
+		const turn = round % 2 == 0 ? "X" : "O";
+		return `Şuanki olduğunuz round ${round} ve sıra ${turn} kişisinde.`;
+	};
+	const showBoard = function (gameBoard) {
+		return `${gameBoard[0][0]} | ${gameBoard[0][1]} | ${gameBoard[0][2]}\n${gameBoard[1][0]} | ${gameBoard[1][1]} | ${gameBoard[1][2]}\n${gameBoard[2][0]} | ${gameBoard[2][1]} | ${gameBoard[2][2]}`;
+	};
+
+	const getPlayersNames = function (playerOneName, playerTwoName) {
+		return `Oyuncularımız ${playerOneName} ve ${playerTwoName}.`;
+	};
+	return {
+		getRound,
+		showBoard,
+		getPlayersNames,
+	};
+})();
+
+function playGame({ playerOneMarker, playerOneName, playerTwoMarker, playerTwoName }) {
 	let round = 0;
-
-	const playerOneName = player1.name;
-	const playerOneMarker = player1.marker;
-	const playerTwoName = player2.name;
-	const playerTwoMarker = player2.marker;
 
 	const gameBoard = [
 		[null, null, null],
@@ -34,23 +46,9 @@ function playGame(player1, player2) {
 	];
 
 	return function gameFlow() {
-		const getRound = function () {
-			let turn;
-			if (round % 2 == 0) {
-				turn = "X";
-			} else {
-				turn = "O";
-			}
-			return `Şuanki olduğunuz round ${round} ve sıra ${turn} kişisinde.`;
-		};
-
-		const showBoard = function () {
-			const a = `${gameBoard[0][0]} | ${gameBoard[0][1]} | ${gameBoard[0][2]}\n${gameBoard[1][0]} | ${gameBoard[1][1]} | ${gameBoard[1][2]}\n${gameBoard[2][0]} | ${gameBoard[2][1]} | ${gameBoard[2][2]}`;
-			return a;
-		};
-		const getPlayersNames = function () {
-			return `Oyuncularımız ${playerOneName} ve ${playerTwoName}.`;
-		};
+		const getRound = gameMethods.getRound(round);
+		const showBoard = gameMethods.showBoard(gameBoard);
+		const getPlayersNames = gameMethods.getPlayersNames(playerOneName, playerTwoName);
 
 		const playOneRound = function () {
 			if (round % 2 == 0) {
@@ -133,7 +131,7 @@ function playGame(player1, player2) {
 			}
 		};
 
-		return { getRound, playOneRound, showBoard, getPlayersNames, checkWinning };
+		return { playOneRound, showBoard, getPlayersNames, checkWinning, getRound };
 	};
 }
-const game1 = playGame(playerX, playerO);
+const game1 = playGame(players);
