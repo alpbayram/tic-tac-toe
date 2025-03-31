@@ -13,6 +13,80 @@
 		<script src="./scripts/app.js" defer></script>
 	</head>
 	<body>
-		<div class="container"><p class="header">Tic Tac Toe</p></div>
+		<div class="container">
+			<div class="icon">
+				<img src="images/x.svg" alt="" /><img src="images/o.svg" alt="" />
+			</div>
+			<div class="turn">
+				<div class="pushable">
+					<span class="front">
+						<div>X</div>
+						<div>TURN</div></span
+					>
+				</div>
+			</div>
+			<div class="restart">
+				<button class="pushable">
+					<span class="front"> <img src="images/refresh.svg" alt="" /> </span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="0" data-y="0" class="pushable">
+					<span class="front"><img class="slot-img" src="" alt=""></span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="1" data-y="0" class="pushable">
+					<span class="front"><img class="slot-img" src="" alt=""> </span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="2" data-y="0" class="pushable">
+					<span class="front"> <img class="slot-img" src="" alt=""></span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="0" data-y="1" class="pushable">
+					<span class="front"><img class="slot-img" src="" alt=""> </span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="1" data-y="1" class="pushable">
+					<span class="front"><img class="slot-img" src="" alt=""> </span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="2" data-y="1" class="pushable">
+					<span class="front"><img class="slot-img" src="" alt=""> </span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="0" data-y="2" class="pushable">
+					<span class="front"><img class="slot-img" src="" alt=""> </span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="1" data-y="2" class="pushable">
+					<span class="front"> <img class="slot-img" src="" alt=""></span>
+				</button>
+			</div>
+			<div class="slot">
+				<button data-x="2" data-y="2" class="pushable">
+					<span class="front"><img class="slot-img" src="" alt=""> </span>
+				</button>
+			</div>
+			<div class="player1 stat">
+				<p>X (Player 1)</p>
+				<div class="score">0</div>
+			</div>
+			<div class="tie stat">
+				<p>Ties</p>
+				<div class="score">0</div>
+			</div>
+			<div class="player2 stat">
+				<p>O (Player 2)</p>
+				<div class="score">0</div>
+			</div>
+		</div>
 	</body>
 </html>
