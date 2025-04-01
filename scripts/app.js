@@ -222,9 +222,9 @@ const domMethods = (function () {
 
 				console.log(imageSource);
 				if (gameFlowInstance.turn()[0] == "x") {
-					imageSource.src = "../images/x.svg";
+					imageSource.src = "images/x.svg";
 				} else {
-					imageSource.src = "../images/o.svg";
+					imageSource.src = "images/o.svg";
 				}
 
 				// event.target.textContent = gameFlowInstance.turn()[0];
