@@ -152,10 +152,13 @@ const domMethods = (function () {
 	const nameContainer = document.querySelector(".name-container");
 	const input1 = nameContainer.querySelector("#player-1-name");
 	const input2 = nameContainer.querySelector("#player-2-name");
+	input1.value = "Player1";
+	input2.value = "Player2";
 	createGameContainer.addEventListener("click", createDom);
 	container.addEventListener("click", renderDom);
 
 	function createDom(event) {
+		const regex = new RegExp("^[A-Za-zşŞıİçÇöÖüÜĞğ\d]{3,12}$")
 		const markX = document.querySelector(".x-select");
 		const markO = document.querySelector(".o-select");
 
@@ -175,19 +178,24 @@ const domMethods = (function () {
 				relative.style.transform = "translate(100%, 0%)";
 			}
 		} else if (event.target.closest(".create-game-button")) {
-			const getValue = markX.dataset.value == "1" ? "x" : "o";
-			const players = createPlayers({
-				playerOneName: input1.value,
-				playerOneMarker: getValue,
-				playerTwoName: input2.value,
-			});
-			gameFlowInstance = playGame(players);
-			createGameContainer.style.display = "none";
-			container.style.display = "grid";
-			player1Stat.textContent = `${gameFlowInstance.getPlayersNames[1]} (${gameFlowInstance.getPlayersNames[0]}) `;
-			player2Stat.textContent = `${gameFlowInstance.getPlayersNames[3]} (${gameFlowInstance.getPlayersNames[2]}) `;
-			mark.textContent = `Turn: ${gameFlowInstance.turn()[0]}`;
-			console.log(getValue);
+			if (regex.test(input1.value) && regex.test(input2.value)) {
+				const getValue = markX.dataset.value == "1" ? "x" : "o";
+				const players = createPlayers({
+					playerOneName: input1.value,
+					playerOneMarker: getValue,
+					playerTwoName: input2.value,
+				});
+				gameFlowInstance = playGame(players);
+				createGameContainer.style.display = "none";
+				container.style.display = "grid";
+				player1Stat.textContent = `${gameFlowInstance.getPlayersNames[1]} (${gameFlowInstance.getPlayersNames[0]}) `;
+				player2Stat.textContent = `${gameFlowInstance.getPlayersNames[3]} (${gameFlowInstance.getPlayersNames[2]}) `;
+				mark.textContent = `Turn: ${gameFlowInstance.turn()[0]}`;
+				console.log(getValue);
+			}
+			else{
+				console.log("burada")
+			}
 		}
 	}
 
@@ -197,8 +205,8 @@ const domMethods = (function () {
 			console.log("girdi");
 			createGameContainer.style.display = "flex";
 			container.style.display = "none";
-			input1.value = "Player 1";
-			input2.value = "Player 2";
+			input1.value = "Player1";
+			input2.value = "Player2";
 			slotAll.forEach((element) => {
 				element.src = "";
 			});
@@ -231,7 +239,7 @@ const domMethods = (function () {
 				gameFlowInstance.playOneRound(coordinateY, coordinateX);
 				if (gameFlowInstance.gameOver() == true) {
 					mark.style.fontSize = "1.1rem";
-					
+
 					mark.textContent = `Winner: ${gameFlowInstance.getWinner()[0]}`;
 				} else {
 					mark.textContent = `Turn: ${gameFlowInstance.turn()[0]}`;
