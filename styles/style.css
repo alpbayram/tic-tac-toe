@@ -333,7 +333,7 @@ dialog {
 	margin: auto;
 	
 	width: clamp(24rem, 80vw, 60rem);
-	aspect-ratio: 2.5/1;
+	
 	background-color: #1f3641;
 	border-radius: 16px;
 }
@@ -361,6 +361,7 @@ dialog {
 	background-color: #f2b137;
 }
 .dialog-button.pushable{
+	width: 90%;
 	background-color: #cc8b13;
 }
 .center-div {
@@ -374,9 +375,8 @@ dialog {
 dialog::backdrop {
 	background-color: #0d1519;
   }
-  @media screen and (width < 992px) {
-	dialog{
-		
-		aspect-ratio: unset;
-	}
-  }
+ 
+  .dialog-button:focus {
+    outline: 2px solid #f2b137; /* Özel bir renk ve stil */
+    outline-offset: 4px;
+}
