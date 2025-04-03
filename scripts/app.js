@@ -33,6 +33,10 @@ const gameMethods = (function () {
 		return [playerOneName, playerOneMarkerText, playerTwoName, playerTwoMarkerText];
 	};
 
+	const checkTie = function (round) {
+		const tie = round == 8 ? true : false;
+		return tie;
+	};
 	const checkWinning = function (mark, gameBoard) {
 		let checkRow = gameBoard.find(function (item, index, array) {
 			let xCountInRow = item.filter(function (item, index, array) {
@@ -50,7 +54,7 @@ const gameMethods = (function () {
 				let checkColumn = gameBoard.reduce(function (acc, item, index, array) {
 					if (item[element] == marker) {
 						acc.push(item[element]);
-						console.log(acc);
+						// console.log(acc);
 						return acc;
 					} else {
 						return acc;
@@ -65,7 +69,27 @@ const gameMethods = (function () {
 			}
 		})(mark);
 
-		if (checkRow != undefined || returnColumn == true) {
+		let returnCross = (function (marker) {
+			function cross(element, boardIndex, array) {
+				let checkCross = gameBoard.reduce(function (acc, item, index, array) {
+					if (item[element] == marker && index == boardIndex) {
+						acc.push(item[element]);
+						console.log(acc);
+						return acc;
+					} else {
+						return acc;
+					}
+				}, []).length;
+				if (checkCross == 1) {
+					return true;
+				}
+			}
+			if ([0, 1, 2].every(cross) == true || [2, 1, 0].every(cross) == true) {
+				return true;
+			}
+		})(mark);
+
+		if (checkRow != undefined || returnColumn == true || returnCross == true) {
 			return true;
 		} else {
 			return false;
@@ -77,6 +101,7 @@ const gameMethods = (function () {
 		showBoard,
 		getPlayers,
 		checkWinning,
+		checkTie,
 	};
 })();
 
@@ -98,6 +123,7 @@ function playGame({ playerOneMarker, playerOneName, playerTwoMarker, playerTwoNa
 		playerTwoName,
 		playerTwoMarker
 	);
+	const checkTie = () => gameMethods.checkTie(round);
 	const isCellEmpty = function (y, x) {
 		return gameBoard[y][x] == null ? true : false;
 	};
@@ -122,6 +148,10 @@ function playGame({ playerOneMarker, playerOneName, playerTwoMarker, playerTwoNa
 				winner = [currentPlayer[1], currentPlayer[0]];
 				console.log(winner);
 				console.log(`${currentPlayer[1]} siz kazandınız. İşaretiniz: ${currentPlayer[0]}`);
+			} else if (checkTie()) {
+				console.log(checkTie());
+				isGameOver = true;
+				winner = ["Tie", "Tie"];
 			} else {
 				round++;
 			}
@@ -155,7 +185,7 @@ const domMethods = (function () {
 	const dialog = document.querySelector("dialog");
 	const dialogText = dialog.querySelector(".dialog-text");
 	const dialogButton = dialog.querySelector(".dialog-button");
-	const slotAll = document.querySelectorAll(".slot-img");
+
 	const markX = document.querySelector(".x-select");
 	const markO = document.querySelector(".o-select");
 	input1.value = "Player1";
@@ -171,8 +201,9 @@ const domMethods = (function () {
 			playerTwoName: input2.value,
 		});
 		gameFlowInstance = playGame(players);
+		const slotAll = document.querySelectorAll(".slot-img");
 		slotAll.forEach((element) => {
-			element.src = "";
+			element.remove();
 		});
 		dialog.close();
 	}
@@ -235,13 +266,16 @@ const domMethods = (function () {
 			container.style.display = "none";
 			input1.value = "Player1";
 			input2.value = "Player2";
+
+			const slotAll = document.querySelectorAll(".slot-img");
 			slotAll.forEach((element) => {
-				element.src = "";
+				element.remove();
 			});
-		} else if (event.target.closest(".pushable")) {
+		} else if (event.target.matches(".slot-container")) {
 			event.preventDefault();
 
-			const imageSource = event.target.querySelector(".slot-img");
+			const imageSource = event.target;
+
 			const winnerSource = document.querySelector(".winner-img");
 			const coordinateY = event.target.closest(".pushable").dataset.y;
 			const coordinateX = event.target.closest(".pushable").dataset.x;
@@ -259,9 +293,15 @@ const domMethods = (function () {
 
 				console.log(imageSource);
 				if (gameFlowInstance.turn()[0] == "x") {
-					imageSource.src = "images/x.svg";
+					const imgCreate = document.createElement("img");
+					imgCreate.classList.add("slot-img");
+					imageSource.appendChild(imgCreate);
+					imgCreate.setAttribute("src", "images/x.svg");
 				} else {
-					imageSource.src = "images/o.svg";
+					const imgCreate = document.createElement("img");
+					imgCreate.classList.add("slot-img");
+					imageSource.appendChild(imgCreate);
+					imgCreate.setAttribute("src", "images/o.svg");
 				}
 
 				// event.target.textContent = gameFlowInstance.turn()[0];
@@ -270,12 +310,23 @@ const domMethods = (function () {
 				if (gameFlowInstance.gameOver() == true) {
 					mark.style.fontSize = "1.1rem";
 					dialog.showModal();
-					console.log(gameFlowInstance.getWinner()[1] + "bu");
+					console.log(gameFlowInstance.getWinner()[0]);
 					winnerSource.src =
-						gameFlowInstance.getWinner()[1] == "x" ? "images/x.svg" : "images/o.svg";
+						gameFlowInstance.getWinner()[1] == "Tie"
+							? "images/tie.svg"
+							: gameFlowInstance.getWinner()[1] == "x"
+							? "images/x.svg"
+							: "images/o.svg";
 					dialogText.style.color =
-						gameFlowInstance.getWinner()[1] == "x" ? "#31c4be" : "#f2b237";
-					dialogText.textContent = `${gameFlowInstance.getWinner()[0]} TAKES THE ROUND`;
+						gameFlowInstance.getWinner()[1] == "Tie"
+							? "#A8BFC9"
+							: gameFlowInstance.getWinner()[1] == "x"
+							? "#31c4be"
+							: "#f2b237";
+					dialogText.textContent =
+						gameFlowInstance.getWinner()[1] == "Tie"
+							? `Round Tied`
+							: `${gameFlowInstance.getWinner()[0]} TAKES THE ROUND`;
 					mark.textContent = `Winner: ${gameFlowInstance.getWinner()[0]}`;
 				} else {
 					mark.textContent = `Turn: ${gameFlowInstance.turn()[0]}`;
