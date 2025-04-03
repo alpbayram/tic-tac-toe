@@ -319,6 +319,9 @@ body {
 	outline: 6px solid red;
 	outline-offset: 4px;
 }
+.input::placeholder{
+	color: #6d7e87;
+}
 .input:focus:valid {
 	outline: 6px solid green;
 	outline-offset: 4px;
