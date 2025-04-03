@@ -13,6 +13,17 @@
 		<script src="./scripts/app.js" defer></script>
 	</head>
 	<body>
+		<dialog>
+			<div class="center-div">
+				<div class="dialog-div">
+					<p class="dialog-text">qwe</p>
+					<img class="winner-img" src="" alt="" width="100px" height="100px"/>
+					<button type="button" class="pushable dialog-button">
+						<span class="front dialog-button">NEXT ROUND</span>
+					</button>
+				</div>
+			</div>
+		</dialog>
 		<div class="container">
 			<div class="icon">
 				<img src="images/x.svg" alt="" /><img src="images/o.svg" alt="" />
@@ -21,8 +32,7 @@
 				<div class="pushable">
 					<span class="front">
 						<div class="mark"></div>
-						</span
-					>
+					</span>
 				</div>
 			</div>
 			<div class="restart">
@@ -75,7 +85,7 @@
 					<span class="front"><img class="slot-img" src="" alt="" /> </span>
 				</button>
 			</div>
-			<div class="player1 stat ">
+			<div class="player1 stat">
 				<p class="player-1-stat">X (Player 1)</p>
 				<div class="score">0</div>
 			</div>
@@ -93,7 +103,7 @@
 			<div class="icon-container">
 				<img src="images/x.svg" alt="" /><img src="images/o.svg" alt="" />
 			</div>
-			<form ></form>
+
 			<div class="input-container">
 				<div class="pushable">
 					<span class="front">
@@ -109,16 +119,31 @@
 						</div>
 						<div class="name-container">
 							<label class="label" for="player-1-name">PLAYER 1'S NAME</label>
-							<input class="input" type="text" id="player-1-name" />
+							<input
+								class="input"
+								maxlength="12"
+								required
+								placeholder="3-12 Character"
+								pattern="^[A-Za-zşŞıİçÇöÖüÜĞğ\d]{3,12}$"
+								type="text"
+								id="player-1-name"
+							/>
 							<label class="label" for="player-2-name">PLAYER 2'S NAME</label>
-							<input class="input" type="text" id="player-2-name" /></div
+							<input
+								class="input"
+								maxlength="12"
+								required
+								placeholder="3-12 Character"
+								pattern="^[A-Za-zşŞıİçÇöÖüÜĞğ\d]{3,12}$"
+								type="text"
+								id="player-2-name"
+							/></div
 					></span>
 				</div>
 			</div>
 
-			
 			<button class="pushable create-game-button">
-				<span class="front create-game-button">  PLAY</span>
+				<span class="front create-game-button"> PLAY</span>
 			</button>
 		</div>
 	</body>
